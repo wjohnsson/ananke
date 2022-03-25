@@ -72,7 +72,7 @@ public class ExperimentSettings implements Serializable {
   private int sourcePort;
 
   @Parameter(names = "--maxParallelism", description = "maximum allowed parallelism")
-  private int maxParallelism = 4;
+  private int maxParallelism = 1;
 
   @Parameter(names = "--provenanceActivator", description = "provenance algorithm, e.g., ANANKE, GENEALOG, etc.")
   private ProvenanceActivator provenanceActivator = ProvenanceActivator.GENEALOG;
