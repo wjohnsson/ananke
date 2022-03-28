@@ -38,7 +38,7 @@ public class ExperimentSettings implements Serializable {
   @Parameter(names = "--statisticsFolder", required = true, description = "path where output files will be stored")
   private String statisticsFolder;
 
-  @Parameter(names = "--inputFile", description = "the input file of the streaming query")
+  @Parameter(names = "--inputFile", required = true, description = "the input file of the streaming query")
   private String inputFile;
 
   @Parameter(names = "--outputFile", required = true, description = "the name of the file to store where the output of the query will be stored")
