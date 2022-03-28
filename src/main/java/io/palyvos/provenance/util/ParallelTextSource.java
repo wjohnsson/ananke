@@ -32,7 +32,7 @@ public abstract class ParallelTextSource<T extends BaseTuple>
   public void open(Configuration parameters) throws Exception {
     super.open(parameters);
     RuntimeContext ctx = getRuntimeContext();
-    this.inputFile = settings.inputFile();
+    this.inputFile = settings.getInputFile();
     LOG.info("Source {} reading from file {}", ctx.getIndexOfThisSubtask(), inputFile);
     this.throughputStatistic =
         new CountStat(
