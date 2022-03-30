@@ -60,6 +60,11 @@ public abstract class ParallelTextSource<T extends BaseTuple>
         while (enabled && line != null) {
           throughputStatistic.increase(1);
           T tuple = getTuple(line.trim(), taskIndex, idShift);
+          if (tuple == null) {
+            LOG.info("Got a null tuple, interpreting as comment, moving to next line.");
+            line = br.readLine();
+            continue;
+          }
           long newTimestamp = tuple.getTimestamp() + timestampShift;
           tuple.setTimestamp(newTimestamp);
           highestTimestamp = Math.max(highestTimestamp, newTimestamp);
