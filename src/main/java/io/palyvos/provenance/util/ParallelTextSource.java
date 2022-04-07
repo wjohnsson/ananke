@@ -1,12 +1,14 @@
 package io.palyvos.provenance.util;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import org.apache.flink.api.common.functions.RuntimeContext;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.streaming.api.functions.source.RichParallelSourceFunction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 
 public abstract class ParallelTextSource<T extends BaseTuple>
     extends RichParallelSourceFunction<T> {
@@ -55,7 +57,8 @@ public abstract class ParallelTextSource<T extends BaseTuple>
           repetition,
           timestampShift,
           idShift);
-      try (BufferedReader br = new BufferedReader(new FileReader(inputFile))) {
+      try (BufferedReader br = new BufferedReader(
+              new InputStreamReader(new FileInputStream(inputFile), settings.getInputEncoding()))) {
         String line = br.readLine();
         while (enabled && line != null) {
           throughputStatistic.increase(1);

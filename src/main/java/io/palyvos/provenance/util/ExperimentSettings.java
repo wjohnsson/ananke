@@ -40,6 +40,9 @@ public class ExperimentSettings implements Serializable {
   @Parameter(names = "--inputFile", required = true, description = "the input file of the streaming query")
   private String inputFile;
 
+  @Parameter(names = "--inputEncoding", description = "the text encoding of the input file for the streaming query")
+  private String inputEncoding = "ISO-8859-1";
+
   @Parameter(names = "--outputFile", required = true, description = "the name of the file to store where the output of the query will be stored")
   private String outputFile;
 
@@ -183,6 +186,10 @@ public class ExperimentSettings implements Serializable {
 
   public String getInputFile() {
     return inputFile;
+  }
+
+  public String getInputEncoding() {
+    return inputEncoding;
   }
 
   public String statisticsFolder() {
