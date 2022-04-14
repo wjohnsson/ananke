@@ -1,12 +1,13 @@
 package io.palyvos.provenance.ananke.functions;
 
 import io.palyvos.provenance.genealog.GenealogJoinHelper;
+import io.palyvos.provenance.util.TimestampedTuple;
 import org.apache.commons.lang3.Validate;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.streaming.api.functions.co.ProcessJoinFunction;
 import org.apache.flink.util.Collector;
 
-public class ProvenanceProcessJoinFunction<IN1, IN2, OUT> extends
+public class ProvenanceProcessJoinFunction<IN1 extends TimestampedTuple, IN2 extends TimestampedTuple, OUT extends TimestampedTuple> extends
     ProcessJoinFunction<ProvenanceTupleContainer<IN1>, ProvenanceTupleContainer<IN2>, ProvenanceTupleContainer<OUT>> {
 
   private final ProcessJoinFunction<IN1, IN2, OUT> delegate;
@@ -33,7 +34,7 @@ public class ProvenanceProcessJoinFunction<IN1, IN2, OUT> extends
   }
 
 
-  private static class CollectorAdapter<T1, T2, O> implements Collector<O> {
+  private static class CollectorAdapter<T1 extends TimestampedTuple, T2 extends TimestampedTuple, O extends TimestampedTuple> implements Collector<O> {
 
     private final ProvenanceTupleContainer<T1> left;
     private final ProvenanceTupleContainer<T2> right;

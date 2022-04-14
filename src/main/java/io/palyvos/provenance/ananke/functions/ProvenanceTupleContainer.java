@@ -4,6 +4,7 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.Serializer;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
+import io.palyvos.provenance.util.TimestampedTuple;
 import io.palyvos.provenance.util.TimestampedUIDTuple;
 import io.palyvos.provenance.genealog.GenealogData;
 import io.palyvos.provenance.genealog.GenealogTuple;
@@ -11,11 +12,9 @@ import io.palyvos.provenance.genealog.GenealogTupleType;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class ProvenanceTupleContainer<T> implements GenealogTuple {
+public class ProvenanceTupleContainer<T extends TimestampedTuple> implements GenealogTuple {
 
   private GenealogData genealogData;
-  private long timestamp;
-  private long stimulus;
   private final T tuple;
 
   public ProvenanceTupleContainer(T tuple) {
@@ -33,31 +32,31 @@ public class ProvenanceTupleContainer<T> implements GenealogTuple {
   }
 
   public void copyTimes(GenealogTuple other) {
-    this.timestamp = other.getTimestamp();
-    this.stimulus = other.getStimulus();
+    setTimestamp(other.getTimestamp());
+    setStimulus(other.getStimulus());
   }
 
   public void copyTimes(GenealogTuple first, GenealogTuple second) {
-    this.timestamp = Math.max(first.getTimestamp(), second.getTimestamp());
-    this.stimulus = Math.max(first.getStimulus(), second.getStimulus());
+    setTimestamp(Math.max(first.getTimestamp(), second.getTimestamp()));
+    setStimulus(Math.max(first.getStimulus(), second.getStimulus()));
   }
 
   @Override
   public long getStimulus() {
-    return stimulus;
+    return tuple.getStimulus();
   }
 
   @Override
   public long getTimestamp() {
-    return timestamp;
+    return tuple.getTimestamp();
   }
 
   public void setTimestamp(long timestamp) {
-    this.timestamp = timestamp;
+    tuple.setTimestamp(timestamp);
   }
 
   public void setStimulus(long stimulus) {
-    this.stimulus = stimulus;
+    tuple.setStimulus(stimulus);
   }
 
   @Override
@@ -111,17 +110,13 @@ public class ProvenanceTupleContainer<T> implements GenealogTuple {
     public void write(Kryo kryo, Output output, ProvenanceTupleContainer object) {
       customGenericSerializer.write(kryo, output, object.tuple);
       genealogDataSerializer.write(kryo, output, object.genealogData);
-      output.writeLong(object.timestamp);
-      output.writeLong(object.stimulus);
     }
 
     @Override
     public ProvenanceTupleContainer read(Kryo kryo, Input input, Class<ProvenanceTupleContainer> type) {
-      Object tuple = customGenericSerializer.read(kryo, input);
-      ProvenanceTupleContainer tupleContainer = new ProvenanceTupleContainer(tuple);
+      TimestampedTuple tuple = (TimestampedTuple) customGenericSerializer.read(kryo, input);
+      ProvenanceTupleContainer<TimestampedTuple> tupleContainer = new ProvenanceTupleContainer<>(tuple);
       tupleContainer.setGenealogData(genealogDataSerializer.read(kryo, input, GenealogData.class));
-      tupleContainer.setTimestamp(input.readLong());
-      tupleContainer.setStimulus(input.readLong());
       return tupleContainer;
     }
   }
