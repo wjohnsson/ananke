@@ -1,10 +1,11 @@
 package io.palyvos.provenance.ananke.functions;
 
+import io.palyvos.provenance.util.TimestampedTuple;
 import org.apache.flink.api.common.typeinfo.TypeInformation;
 import org.apache.flink.api.java.functions.KeySelector;
 import org.apache.flink.api.java.typeutils.ResultTypeQueryable;
 
-public class ProvenanceKeySelectorWithTypeInfo<IN, KEY> extends
+public class ProvenanceKeySelectorWithTypeInfo<IN extends TimestampedTuple, KEY> extends
     ProvenanceKeySelector<IN, KEY> implements
     ResultTypeQueryable<KEY> {
 

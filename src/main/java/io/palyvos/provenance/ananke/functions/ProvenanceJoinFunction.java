@@ -1,9 +1,10 @@
 package io.palyvos.provenance.ananke.functions;
 
 import io.palyvos.provenance.genealog.GenealogJoinHelper;
+import io.palyvos.provenance.util.TimestampedTuple;
 import org.apache.flink.api.common.functions.JoinFunction;
 
-public class ProvenanceJoinFunction<IN1, IN2, OUT>
+public class ProvenanceJoinFunction<IN1 extends TimestampedTuple, IN2 extends TimestampedTuple, OUT extends TimestampedTuple>
     implements JoinFunction<
     ProvenanceTupleContainer<IN1>, ProvenanceTupleContainer<IN2>, ProvenanceTupleContainer<OUT>> {
 
