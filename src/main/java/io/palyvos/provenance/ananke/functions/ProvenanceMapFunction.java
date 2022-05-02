@@ -1,10 +1,9 @@
 package io.palyvos.provenance.ananke.functions;
 
 import io.palyvos.provenance.genealog.GenealogMapHelper;
-import io.palyvos.provenance.util.TimestampedTuple;
 import org.apache.flink.api.common.functions.MapFunction;
 
-public class ProvenanceMapFunction<T extends TimestampedTuple, O extends TimestampedTuple>
+public class ProvenanceMapFunction<T, O>
     implements MapFunction<ProvenanceTupleContainer<T>, ProvenanceTupleContainer<O>> {
 
   private final MapFunction<T, O> delegate;

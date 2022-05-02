@@ -1,9 +1,8 @@
 package io.palyvos.provenance.ananke.functions;
 
-import io.palyvos.provenance.util.TimestampedTuple;
 import org.apache.flink.api.common.functions.FilterFunction;
 
-public class ProvenanceFilterFunction<T extends TimestampedTuple> implements FilterFunction<ProvenanceTupleContainer<T>> {
+public class ProvenanceFilterFunction<T> implements FilterFunction<ProvenanceTupleContainer<T>> {
 
   private final FilterFunction<T> delegate;
 

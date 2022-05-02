@@ -1,9 +1,8 @@
 package io.palyvos.provenance.ananke.functions;
 
-import io.palyvos.provenance.util.TimestampedTuple;
 import org.apache.flink.api.java.functions.KeySelector;
 
-public class ProvenanceKeySelector<IN extends TimestampedTuple, KEY> implements KeySelector<ProvenanceTupleContainer<IN>, KEY> {
+public class ProvenanceKeySelector<IN, KEY> implements KeySelector<ProvenanceTupleContainer<IN>, KEY> {
 
   private final KeySelector<IN, KEY> delegate;
 

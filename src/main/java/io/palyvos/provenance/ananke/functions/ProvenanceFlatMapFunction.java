@@ -1,16 +1,15 @@
 package io.palyvos.provenance.ananke.functions;
 
 import io.palyvos.provenance.genealog.GenealogMapHelper;
-import io.palyvos.provenance.util.TimestampedTuple;
 import org.apache.flink.api.common.functions.FlatMapFunction;
 import org.apache.flink.util.Collector;
 
-public class ProvenanceFlatMapFunction<T extends TimestampedTuple, O extends TimestampedTuple>
+public class ProvenanceFlatMapFunction<T, O>
     implements FlatMapFunction<ProvenanceTupleContainer<T>, ProvenanceTupleContainer<O>> {
 
   private final FlatMapFunction<T, O> delegate;
 
-  private static class CollectorAdapter<T extends TimestampedTuple, O extends TimestampedTuple> implements Collector<O> {
+  private static class CollectorAdapter<T, O> implements Collector<O> {
 
     private final ProvenanceTupleContainer<T> input;
     private final Collector<ProvenanceTupleContainer<O>> delegate;

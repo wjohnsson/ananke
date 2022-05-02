@@ -3,11 +3,9 @@ package io.palyvos.provenance.ananke.functions;
 import io.palyvos.provenance.genealog.GenealogTupleType;
 import java.io.Serializable;
 import java.util.function.Function;
-
-import io.palyvos.provenance.util.TimestampedTuple;
 import org.apache.flink.api.common.functions.MapFunction;
 
-public class ProvenanceInitializer<T extends TimestampedTuple> implements MapFunction<T, ProvenanceTupleContainer<T>> {
+public class ProvenanceInitializer<T> implements MapFunction<T, ProvenanceTupleContainer<T>> {
 
   private final Function<T, Long> timestampFunction;
   private final Function<T, Long> stimulusFunction;
