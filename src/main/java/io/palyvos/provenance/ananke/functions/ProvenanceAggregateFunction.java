@@ -4,11 +4,9 @@ import io.palyvos.provenance.ananke.aggregate.ProvenanceAggregateStrategy;
 import io.palyvos.provenance.ananke.functions.ProvenanceAggregateFunction.GenealogMetadataAccumulator;
 import java.io.Serializable;
 import java.util.function.Supplier;
-
-import io.palyvos.provenance.util.TimestampedTuple;
 import org.apache.flink.api.common.functions.AggregateFunction;
 
-public class ProvenanceAggregateFunction<IN extends TimestampedTuple, ACC, OUT extends TimestampedTuple>
+public class ProvenanceAggregateFunction<IN, ACC, OUT>
     implements AggregateFunction<
     ProvenanceTupleContainer<IN>, GenealogMetadataAccumulator<ACC>, ProvenanceTupleContainer<OUT>> {
 

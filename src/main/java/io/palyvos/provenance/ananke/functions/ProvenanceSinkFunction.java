@@ -1,9 +1,8 @@
 package io.palyvos.provenance.ananke.functions;
 
-import io.palyvos.provenance.util.TimestampedTuple;
 import org.apache.flink.streaming.api.functions.sink.SinkFunction;
 
-public class ProvenanceSinkFunction<IN extends TimestampedTuple> implements
+public class ProvenanceSinkFunction<IN> implements
     SinkFunction<ProvenanceTupleContainer<IN>> {
 
   private final SinkFunction<IN> delegate;
