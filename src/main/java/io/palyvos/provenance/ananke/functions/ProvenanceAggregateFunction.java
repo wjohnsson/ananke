@@ -68,6 +68,12 @@ public class ProvenanceAggregateFunction<IN, ACC, OUT>
   @Override
   public GenealogMetadataAccumulator<ACC> merge(
       GenealogMetadataAccumulator<ACC> a, GenealogMetadataAccumulator<ACC> b) {
-    throw new UnsupportedOperationException("merge");
+    ACC inAcc = delegate.merge(a.accumulator, b.accumulator);
+
+    GenealogMetadataAccumulator<ACC> mergedAcc = new GenealogMetadataAccumulator<>(strategySupplier.get(), inAcc);
+    mergedAcc.timestamp = Math.max(a.timestamp, b.timestamp);
+    mergedAcc.stimulus = Math.max(a.stimulus, b.stimulus);
+
+    return mergedAcc;
   }
 }
