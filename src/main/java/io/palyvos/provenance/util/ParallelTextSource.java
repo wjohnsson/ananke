@@ -15,7 +15,7 @@ public abstract class ParallelTextSource<T extends BaseTuple>
 
   private static final Logger LOG = LoggerFactory.getLogger(ParallelTextSource.class);
   private static final String DEFAULT_NAME = "SOURCE";
-  private final ExperimentSettings settings;
+  public final ExperimentSettings settings;
   private String inputFile;
   private transient CountStat throughputStatistic;
   private volatile boolean enabled;
@@ -86,5 +86,9 @@ public abstract class ParallelTextSource<T extends BaseTuple>
   @Override
   public void cancel() {
     enabled = false;
+  }
+
+  public ExperimentSettings getSettings() {
+    return settings;
   }
 }

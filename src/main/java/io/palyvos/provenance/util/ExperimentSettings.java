@@ -43,6 +43,9 @@ public class ExperimentSettings implements Serializable {
   @Parameter(names = "--inputEncoding", description = "the text encoding of the input file for the streaming query")
   private String inputEncoding = "ISO-8859-1";
 
+  @Parameter(names = "--separator", description = "the separator used in the csv input file")
+  private String separator = ",";
+
   @Parameter(names = "--outputFile", required = true, description = "the name of the file to store where the output of the query will be stored")
   private String outputFile;
 
@@ -190,6 +193,10 @@ public class ExperimentSettings implements Serializable {
 
   public String getInputEncoding() {
     return inputEncoding;
+  }
+
+  public String getSeparator() {
+    return separator;
   }
 
   public String statisticsFolder() {
