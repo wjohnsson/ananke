@@ -25,6 +25,7 @@ public class ExperimentSettings implements Serializable {
   public static final String LATENCY_FILE = "latency";
   public static final String THROUGHPUT_FILE = "rate";
   public static final String TRAVERSAL_FILE = "traversal";
+  public static final String INPUT_EXTENSION = "txt";
   public static final String DEFAULT_SLOT_SHARING_GROUP = "default";
   public static final String SECOND_SLOT_SHARING_GROUP = "group2";
   private static final String THIRD_SLOT_SHARING_GROUP = "group3";
